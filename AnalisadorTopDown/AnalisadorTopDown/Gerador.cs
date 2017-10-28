@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace AnalisadorTopDown {
     public static class Gerador {
@@ -14,7 +15,8 @@ namespace AnalisadorTopDown {
                     if (Regex.Match(producao, regexNaoTerminais).Success) {
                         firsts.Add(producao[0].ToString());
                         //acha todos os firts do NT
-                    } else {// Não achou um T naquela producao
+                    } else {// Não achou um T naquela producao (BASICAMENTE FAZ O METODO DE NOVO
+                        
                         //Procurar em outras "entrys" pelo first do NT
                         foreach (var newEntry in gramatica.Reverse()) {
                             if (newEntry.Key[0] == producao[0]) { // Se a chave da nova entrada é o NT em questão
@@ -25,9 +27,18 @@ namespace AnalisadorTopDown {
 
                             }
                         }
+
+                        
+                        /*
+                        //NAO ME PERGUNTE
+                        Dictionary<string, string[]> dicionarioTemp = new Dictionary<string, string[]>(gramatica);
+                        dicionarioTemp.Remove(entry.Key);
+                        //MessageBox.Show(producao[0].ToString() + " " + vetorTemp[0]);
+                        firsts.Add(GerarFirst(dicionarioTemp)[producao[0].ToString()][0]);
+                        */
                     }
 
-                    
+
 
                     if (firsts == null) {
                         Console.WriteLine("Fudeu");
