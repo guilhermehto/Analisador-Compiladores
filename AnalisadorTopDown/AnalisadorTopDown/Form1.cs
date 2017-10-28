@@ -16,7 +16,7 @@ namespace AnalisadorTopDown {
 
         private void btnAdicionar_Click(object sender, EventArgs e) {
             if (_maxProducoes == 0) {
-                MessageBox.Show("Você já adicionou uma produção como esta", "Tenta novamente", 
+                MessageBox.Show("Você já adicionou uma produção como esta", "Tente novamente", 
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Error);
                 return;
@@ -40,14 +40,26 @@ namespace AnalisadorTopDown {
                     txtFieldGramatica.Text += entry.Key + " -> " + producoes + "\n";
                 }
             } catch (Exception ex) {
-                MessageBox.Show("Você já adicionou uma produção como esta", "Tenta novamente",
+                MessageBox.Show("Você já adicionou uma produção como esta", "Tente novamente",
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Error);
             }
         }
 
         private void btnGerarFirstEFollow_Click(object sender, EventArgs e) {
-            Gerador.GerarFirst(_producoes);
+            //Gerador.GerarFirst(_producoes);
+
+            Dictionary<string, string[]> lala = Gerador.GerarFirst(_producoes);
+            
+            int i = 0;
+            foreach (var entry in lala) {
+                txtBoxFirsts.Text = txtBoxFirsts.Text + "FIRST (" + entry.Key + ") = ";
+                foreach (var value in entry.Value) {
+                    //MessageBox.Show(entry.Key + " -> " + value);
+                    txtBoxFirsts.Text += "," + value;
+                }
+                txtBoxFirsts.Text = txtBoxFirsts.Text + "\n";
+            }
         }
     }
 }
